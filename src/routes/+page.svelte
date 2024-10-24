@@ -67,7 +67,11 @@
 			Width = window.visualViewport.width / (cols + 2);
 			Height = window.visualViewport.width / (rows + 2);
 		}
+
+        toggleHelp(true); 
+
 	});
+
 
 	let selected;
 	let score = 0;
