@@ -10,8 +10,8 @@
 	let cols = 3;
 	let stacks = 3;
 
-	let Width = 25;
-	let Height = 25;
+	let Width = 81;
+	let Height = 81;
 
 	let block = writable([[[]]]);
 
@@ -36,7 +36,7 @@
 							bottom: { bgColor: 'orange', value: Math.floor(Math.random() * 6) + 1 },
 							top: { bgColor: 'purple', value: Math.floor(Math.random() * 6) + 1 }
 						},
-						size: { height: 50, width: 50 }
+						size: { height: Height, width: Width }
 					};
 					// @ts-ignore
 					if (Math.random() > 0.15) {
@@ -52,12 +52,20 @@
 
 	onMount(() => {
 		// setInterval(async ()=>{await redraw()}, 1000);
+		if (window.visualViewport.width > window.visualViewport.height) {
+			Width = window.visualViewport.height / (cols + 2);
+			Height = window.visualViewport.height / (rows + 2);
+		} else {
+			Width = window.visualViewport.width / (cols + 2);
+			Height = window.visualViewport.width / (rows + 2);
+		}
+
 		redraw();
 	});
 
 	let selected;
-    let points = 0; 
-    let scorebox;
+	let score = 0;
+	let scorebox;
 
 	async function handleFaceClick(e) {
 		console.log(e.detail.data);
@@ -66,15 +74,27 @@
 			selected = newlySelected;
 			return;
 		}
-        if (newlySelected.id === selected.id && newlySelected.bgColor == selected.bgColor && newlySelected.value == selected.value) return;
-		if (newlySelected.value === selected.value || newlySelected.bgColor === selected.bgColor) {
-            try{
-			document.getElementById(newlySelected.id).remove();
-			document.getElementById(selected.id).remove();
-            }
-            catch(e){
-                //I don't actually care, it's more fun this way
-            }
+		if (
+			newlySelected.id === selected.id &&
+			newlySelected.bgColor == selected.bgColor &&
+			newlySelected.value == selected.value
+		)
+			return;
+		let points = 1;
+		if (newlySelected.value === selected.value) {
+			points *= 5;
+		}
+		if (newlySelected.bgColor === selected.bgColor) {
+			points *= 5;
+		}
+		if (points > 1) {
+			score += points;
+			try {
+				document.getElementById(newlySelected.id).remove();
+				document.getElementById(selected.id).remove();
+			} catch (e) {
+				//I don't actually care, it's more fun this way
+			}
 			return;
 		}
 		selected = newlySelected;
@@ -83,13 +103,11 @@
 
 <div
 	id="chunk"
-	style=" will-change: transform;height:{Height *
-		rows *
-		4}px; border:solid; contain:content; overflow: none; display:flex; justify-content:center; align-items:center "
+	style=" will-change: transform; height: {(Height*1.5)*rows*Math.SQRT2}px ;border:solid; contain:content; overflow: none; display:flex; justify-content:center; align-items:flex-start; "
 >
 	<div
-		style="border:solid black; width: {Width * 2}px; height: {Height *
-			2}px; position: absolute; top: 0px; left: 0px; display: flex; justify-content: center; align-items: center; margin: 10px; border-radius: 10px;"
+		style="border:solid black; width: {Width * 1.2}px; height: {Height *
+			1.2}px; position: absolute; top: 0px; left: 0px; display: flex; justify-content: center; align-items: center; margin: 10px; border-radius: 10px;"
 	>
 		{#if selected}
 			<div
@@ -101,30 +119,29 @@
 			</div>
 		{/if}
 	</div>
-    <div
-    style="border:solid black; width: {Width * 2}px; height: {Height *
-        2}px; position: absolute; top: 0px; right: 0px; display: flex; justify-content: center; align-items: center; margin: 10px; border-radius: 10px;"
->
-        <div
-            bind:this={scorebox}
-            style="width: {Width}px; height: {Height}px; display: flex; flex-direction:column; justify-content: center; align-items: center;"
-        >
-            <span style="">
-                {points}
-            </span>
-        </div>
-
-</div>
+	<div
+		style="border:solid black; width: {Width * 1.2}px; height: {Height *
+			1.2}px; position: absolute; top: 0px; right: 0px; display: flex; justify-content: center; align-items: center; margin: 10px; border-radius: 10px;"
+	>
+		<div
+			bind:this={scorebox}
+			style="width: {Width}px; height: {Height}px; display: flex; flex-direction:column; justify-content: center; align-items: center;"
+		>
+			<span style="">
+				{score}
+			</span>
+		</div>
+	</div>
 	<div
 		class="autorotate"
 		style=" will-change: transform;
                 position:relative;
                 display:block; 
+                margin-right:{Math.SQRT2 * Width}px;
+                top: {Width * 1.2}px;
                 transform-style: preserve-3d; 
-                width:{Width * cols * 2}px; 
-                height:{Height * rows * 2}px; 
-                transform-origin: {cols * Width}px {rows * Height}px {stacks * Width}px;
-                 transform: rotateX(45deg) rotateY(45deg)"
+                transform-origin: center center {(Width * stacks) / 2}px;
+                transform: rotateX(45deg) rotateY(45deg)"
 	>
 		{#each $block as row, x (x)}
 			{#each row as col, y (y)}
@@ -143,11 +160,14 @@
 		{/each}
 	</div>
 </div>
-<button
-	on:click={async () => {
-		await redraw();
-	}}>redraw</button
->
+<div style="display: flex; justify-content:center; padding: 4px;">
+	<button
+        style="width:20vw; height:5vh;"
+		on:click={async () => {
+			await redraw();
+		}}>Reload Cube</button
+	>
+</div>
 
 <style>
 	#chunk {
