@@ -117,6 +117,7 @@
 
 	span {
 		position: fixed;
+		font-size: xx-large;
 	}
 
 	.autorotate{

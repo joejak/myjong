@@ -31,7 +31,7 @@
 						faces: {
 							front: { bgColor: 'wheat', value: Math.floor(Math.random() * 6) + 1 },
 							left: { bgColor: 'red', value: Math.floor(Math.random() * 6) + 1 },
-							back: { bgColor: 'blue', value: Math.floor(Math.random() * 6) + 1 },
+							back: { bgColor: 'lightblue', value: Math.floor(Math.random() * 6) + 1 },
 							right: { bgColor: 'green', value: Math.floor(Math.random() * 6) + 1 },
 							bottom: { bgColor: 'orange', value: Math.floor(Math.random() * 6) + 1 },
 							top: { bgColor: 'purple', value: Math.floor(Math.random() * 6) + 1 }
