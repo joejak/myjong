@@ -229,6 +229,10 @@
 		}}>Roll To Add In Where Missing</button
 	>
 </div>
+<h3 style="text-align:center; color: gold; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size:xx-large; font-weight:500"><em>K E R J O N G</em></h3>
+<footer style="margin-top:30vh">
+    <p style="text-align:center; color:#313131; font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Made with 💜 by Joseph Jackson for Kerry Jackson</p>
+</footer>
 
 <dialog bind:this={helpDialog} style="background-color: black;">
 	<HowToDialog
