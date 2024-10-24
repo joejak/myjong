@@ -177,7 +177,7 @@
 	<div
 		style="display: flex; flex-direction: column; justify-content: space-around; gap: 10px; background-color: black;"
 	>
-		<h2>How to Play!</h2>
+		<h2>How to Play</h2>
 
 		<div style="display:flex; align-items:center; justify-content: space-between;padding:20px">
 			<p>Click on the cube faces to select them!</p>
@@ -189,14 +189,14 @@
 		</div>
 		<div style="display:flex; flex-direction:column">
 			<div>
-				<p>Clicking faces with the same number grants 5 points.</p>
+				<p> Same number <br> <strong style="color:green">5 points</strong></p>
 				<div>
 					<Cube id="3" cube={c3}></Cube>
 					<Cube id="4" cube={c4}></Cube>
 				</div>
 			</div>
 			<div>
-				<p>Clicking faces with the same color grants 5 points.</p>
+				<p>Same color <br> <strong style="color:green">5 points</strong></p>
 				<div>
 					<Cube id="5" cube={c4}></Cube>
 					<Cube id="6" cube={c5}></Cube>
@@ -204,8 +204,12 @@
 			</div>
 			<div>
 				<p style="font-size: large; ">
-					Clicking faces with the same number AND same color grants <strong style="color: gold;">25</strong> points.
+					Same number and Same color <br>  <strong style="color: gold;">25 points!</strong> 
 				</p>
+                <div>
+                    <Cube id=2 cube={c3}></Cube>
+                    <Cube id=2 cube={c3}></Cube>
+                </div>
 			</div>
 		</div>
 		<div style="padding: 30px; display:flex; align-items: center; justify-content: space-between;">
@@ -240,4 +244,7 @@
 		margin: 0px;
         text-align: center;
 	}
+    p{
+        font-size:large;
+    }
 </style>

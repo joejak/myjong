@@ -142,7 +142,7 @@
         max-width: {Height *
 		1.5 *
 		rows *
-		Math.SQRT2}px; border:solid; contain:content; overflow: none; display:flex; justify-content:center; align-items:flex-start; margin-left:auto; margin-right:auto;"
+		Math.SQRT2}px; border:solid; border-radius: 15px; contain:content; overflow: none; display:flex; justify-content:center; align-items:flex-start; margin-left:auto; margin-right:auto;"
 >
 	<div
 		style="width: {Width * 1.2}px; height: {Height *
@@ -217,9 +217,9 @@
 		{/each}
 	</div>
 </div>
-<div style="display: flex; justify-content:center; padding: 4px;">
+<div style="display: flex; justify-content:center; padding: 4px; gap: 4px;">
 	<button
-		style="width:20vw; min-width:150px;height:5vh;"
+		style="width:20vw; min-width:150px;height:5vh; border-radius: 15px;"
 		on:click={() => {
 			redraw(true);
 		}}
@@ -227,7 +227,7 @@
 	</button>
 	<button
 		disabled={newGame}
-		style="width:20vw; min-width:150px; height:5vh;"
+		style="width:20vw; min-width:150px; height:5vh; border-radius: 15px;"
 		on:click={() => {
 			redraw(newGame);
 		}}>Roll To Add In Where Missing</button
