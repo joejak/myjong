@@ -12,7 +12,7 @@ export type Faces = {
     bottom: Face
 }
 
-export type Cube = {
+export type CubeData = {
     size: CubeSize,
     faces: Faces
 }
